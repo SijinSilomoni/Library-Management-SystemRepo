@@ -137,6 +137,76 @@ INSERT INTO ReturnStatus (Return_Id, Return_cust, Return_book_name, Return_date,
 (510, 310, 'To All The Boys I\'ve Loved Before', '2023-07-019', '978-0-06-231500-7');
 select * from ReturnStatus;
 
+-- 1.Retrieve the book title, category, and rental price of all available books
+SELECT Book_Title, Category, Rental_Price
+FROM Books
+WHERE Status = 'yes';
+
+-- 2.List the employee names and their respective salaries in descending order of salary.  
+SELECT Emp_Name, Salary
+FROM Employee
+ORDER BY Salary DESC;
+
+-- 3. Retrieve the book titles and the corresponding customers who have issued those books. 
+SELECT Books.Book_Title, Customer.Customer_Name
+FROM IssueStatus
+JOIN Books ON IssueStatus.Isbn_book = Books.ISBN
+JOIN Customer ON IssueStatus.Issued_cust = Customer.Customer_Id;
+
+-- 4.Display the total count of books in each category. 
+SELECT Category, COUNT(*) AS Total_Books
+FROM Books
+GROUP BY Category;
+
+-- 5.Retrieve the employee names and their positions for the employees whose salaries are above Rs.50,000. 
+SELECT Emp_Name, Position
+FROM Employee
+WHERE Salary > 50000;
+
+-- 6.List the customer names who registered before 2023-09-12 and have not issued any books yet. 
+SELECT Customer_name
+FROM Customer
+WHERE Reg_date < '2023-09-12';
+
+-- 7.Display the branch numbers and the total count of employees in each branch. 
+SELECT Branch_No, COUNT(Emp_Id) AS Total_Employees
+FROM Employee
+GROUP BY Branch_No;
+
+-- 8.Display the names of customers who have issued books in the month of June 2023.
+SELECT DISTINCT Customer.Customer_Name
+FROM IssueStatus
+JOIN Customer ON IssueStatus.Issued_cust = Customer.Customer_Id
+WHERE IssueStatus.Issue_date BETWEEN '2023-06-01' AND '2023-06-30';
+
+-- 9.Retrieve book_title from book table containing fiction. 
+SELECT Book_Title
+FROM Books
+WHERE Category = 'Fiction';
+
+-- 10.Retrieve the branch numbers along with the count of employees for branches having more than 5 employees
+SELECT Branch_No, COUNT(*) AS Employee_Count
+FROM Employee
+GROUP BY Branch_No
+HAVING COUNT(*) > 1;
+
+-- 11.Retrieve the names of employees who manage branches and their respective branch addresses.
+SELECT Employee.Emp_Name, Branch.Branch_Address
+FROM Employee
+JOIN Branch ON Employee.Branch_No = Branch.Branch_No
+WHERE Employee.Position = 'Manager';
+
+-- 12.Display the names of customers who have issued books with a rental price higher than Rs.15.
+SELECT DISTINCT Customer.Customer_Name
+FROM Customer
+JOIN IssueStatus ON Customer.Customer_Id = IssueStatus.Issued_cust
+JOIN Books ON IssueStatus.Isbn_book = Books.ISBN
+WHERE Books.Rental_Price > 15;
+
+
+
+
+
 
 
 
