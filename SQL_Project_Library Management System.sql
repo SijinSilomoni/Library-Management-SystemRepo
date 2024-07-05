@@ -8,6 +8,7 @@ CREATE TABLE Branch (
     Branch_Address VARCHAR(255),
     Contact_No VARCHAR(15)
 );
+
 -- 2. Employee table
 CREATE TABLE Employee (
     Emp_Id INT PRIMARY KEY,
@@ -17,7 +18,7 @@ CREATE TABLE Employee (
     Branch_No INT,
     FOREIGN KEY (Branch_No) REFERENCES Branch(Branch_No)
 );
-drop table Customer;
+
 -- 3. Books table
 CREATE TABLE Books (
     ISBN VARCHAR(20) PRIMARY KEY,
